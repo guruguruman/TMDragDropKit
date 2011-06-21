@@ -40,7 +40,6 @@
 
 @implementation TMDragDropCenter
 SYNTHESIZE_SINGLETON_FOR_CLASS(TMDragDropCenter);
-static TMDragDropCenter *instance;
 @synthesize cursorView          = cursorView_;
 @synthesize dropItems           = dropItems_;
 @synthesize dragItems           = dragItems_;
@@ -80,14 +79,6 @@ static TMDragDropCenter *instance;
   [super dealloc];
 }
 
-+ (id)sharedCenter
-{
-  if (instance == nil) {
-    instance = [[TMDragDropCenter alloc] init];
-  }
-  return instance;
-}
-
 //-------------------------------------------------------------------------------------//
 #pragma mark -- Register objects -- 
 //-------------------------------------------------------------------------------------//
@@ -104,11 +95,21 @@ static TMDragDropCenter *instance;
 	[aRecognizer release];
 }
 
+//TODO:
+//I use keywindow for test, so rewrite to enable detection 
+//any field.
 - (void)registerDragField:(UIView *)aDragFieldView
                   withKey:(NSString *)aDragDropKey 
 {
   TMDragField *aDragField = [[[TMDragField alloc] initWithView:aDragFieldView 
                                                            key:aDragDropKey] autorelease];
+  UILongPressGestureRecognizer *aRecognizer = [[UILongPressGestureRecognizer alloc] 
+																							 initWithTarget:self 
+																							 action:@selector(GRHandler:)];
+	aRecognizer.minimumPressDuration = 0.2;
+	
+	[aDragFieldView addGestureRecognizer:aRecognizer];
+	[aRecognizer release];
   [self.draggableFields addObject:aDragField];
 }
 
@@ -256,7 +257,8 @@ static TMDragDropCenter *instance;
 - (void)displayCursorViewFrom:(TMDrag *)aDrag atPoint:(CGPoint)aPoint {
   
 	if (!self.cursorView) {
-      //TODO:Fix the cursor view size and adjust thumb size to cursor view.
+    //TODO:Fix the cursor view size and adjust thumb size to cursor view.
+    //TODO:Write more better animation.
     UIImage *dragThumb = [UIImage viewAsImage:[aDrag dragView]];
 		self.cursorView = [[[UIView alloc] initWithFrame:CGRectMake(aPoint.x,aPoint.y,dragThumb.size.width,dragThumb.size.height)] autorelease];
 		UIImageView *dragThumbView = [[UIImageView alloc] initWithFrame:self.cursorView.bounds];
@@ -287,7 +289,7 @@ static TMDragDropCenter *instance;
 }
 
 - (void)removeCursorViewWithSuccessAnimation:(TMDrag *)aDragItem {
-	
+  //TODO:Write more better animation.
   [UIView 
    animateWithDuration:0.4 
    delay:0 
@@ -303,7 +305,7 @@ static TMDragDropCenter *instance;
 
 - (void)removeCursorViewWithCancelAnimation:(TMDrag *)aDragItem 
                              toOrginalPoint:(CGPoint)aLoc {
-  
+  //TODO:Write more better animation.
   [UIView 
    animateWithDuration:0.4 
    delay:0 

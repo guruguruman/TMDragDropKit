@@ -27,8 +27,12 @@
   }
   for (UIView *subView in detectedView.subviews) {
     for (TMDrag *aDrag in self.dragItems) {
-      CGRect theSubViewFrameOnKeyWindow = [[[aDrag dragView] superview] convertRect:[[aDrag dragView] frame] 
-                                                                             toView:[[UIApplication sharedApplication] keyWindow]];
+      
+      CGRect theSubViewFrameOnKeyWindow = 
+      [[[aDrag dragView] superview] 
+       convertRect:[[aDrag dragView] frame] 
+       toView:[[UIApplication sharedApplication] keyWindow]];
+      
       if (CGRectContainsPoint(theSubViewFrameOnKeyWindow, aPoint) &&
           subView == [aDrag dragView]) {
         return aDrag;
@@ -41,7 +45,12 @@
 - (TMDrop *)detectedDropItemWithCurrentDragItem:(TMDrag *)aDrag atPoint:(CGPoint)aPoint {
 	for (TMDrop *aDrop in self.dropItems) {
     if ([aDrop.dragDropIdentifier isEqualToString:aDrag.dragDropIdentifier]) {
-      CGRect theDropViewFrameOnKeyWindow = [[[aDrop dropView] superview] convertRect:[[aDrop dropView] frame] toView:[[UIApplication sharedApplication] keyWindow]];
+      
+      CGRect theDropViewFrameOnKeyWindow = 
+      [[[aDrop dropView] superview] 
+       convertRect:[[aDrop dropView] frame] 
+       toView:[[UIApplication sharedApplication] keyWindow]];
+      
       if (CGRectContainsPoint(theDropViewFrameOnKeyWindow, aPoint)) {
         return aDrop;
       }

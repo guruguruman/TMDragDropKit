@@ -6,7 +6,7 @@
 //  Copyright 2011 Tomoyuki Kato. All rights reserved.
 //
 
-#define DDInstance [TMDragDropCenter sharedCenter]
+#define DDInstance [TMDragDropCenter sharedTMDragDropCenter]
 
 @class TMDrag,TMDrop;
 @protocol TMDragDelegate,TMDropDelegate;
@@ -24,7 +24,7 @@
 //-------------------------------------------------------------------------------------//
 #pragma mark -- Initialize (Singleton) --
 //-------------------------------------------------------------------------------------//
-+ (TMDragDropCenter *)sharedCenter;
++ (TMDragDropCenter *)sharedTMDragDropCenter;
 
 //-------------------------------------------------------------------------------------//
 #pragma mark -- Register objects -- 

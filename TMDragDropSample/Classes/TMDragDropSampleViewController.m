@@ -96,7 +96,12 @@
   [dropViewGreen release];
   
   UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 850, 650, 100)];
-	descriptionLabel.text = @"NOTE:\nYou can drag each box colored on left dark gray area, and drop same colored box on right.\nBut you cannot drop different colored box.";
+	descriptionLabel.text = 
+  @"NOTE:\n"
+  "You can drag each colored box on left dark gray area, "
+  "and also drop them into same colored box on right.\n"
+  "But you cannot drop into different colored box.";
+  descriptionLabel.textColor = [UIColor whiteColor];
   descriptionLabel.backgroundColor = [UIColor darkGrayColor];
   descriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
   descriptionLabel.numberOfLines = 0;
